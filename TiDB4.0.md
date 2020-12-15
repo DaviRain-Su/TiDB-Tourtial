@@ -62,5 +62,19 @@ Link: https://asktug.com/t/topic/33598
 
 
 
+## Question 
+
+班委们，和你们同步一下关于学习笔记指南哈，收到同学们说不能发布同标题笔记，所以我们对标题格式规范做了调整哈～
+（新增了班级，也方便班委们后续认领登记哒）
+
+标题格式：【TiDB 4.0 PCTA 学习笔记】- 课程名称@班级+昵称
+例子：【TiDB 4.0 PCTA 学习笔记】- 1.1 A Brief History of Distributed Database （分布式数据库发展简史）@ 1班+XXX
+
+【学习笔记发布指南】https://asktug.com/t/topic/33598
+
+
+
+
+
 
 
