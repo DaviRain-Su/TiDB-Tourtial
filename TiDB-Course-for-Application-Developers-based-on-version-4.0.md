@@ -17,6 +17,72 @@
 
 关键知识点：OLTP场景；实时分析数据库；Spark
 
+
+
+
+
+### OLTP-like workload
+
+when you need random, Real-time Read/Write access to you big data(billions of row), with
+
+- ACID compliance
+- Secondary index support 二级索引的支持
+- MySQL syntax 兼容MySQL协议
+
+兼容MySQL协议，支持弹性的水平扩展，对于应用层无感知，对于海量数据是一个不错的选择，对于数据的访问时均匀（随机）的。对小范围的热点数据需要注意。TiDB 是一个100%的OLTP数据库，交易型数据库，建立二级索引。保证毫秒级的延迟。带索引的单行查询，业务侵入性。没有容量的上限
+
+### Real-time HTAP (混合事务分析负载的数据库，HTAP)
+
+- Real-time HTAP(Hybrid transactional/analytical processing)
+- When you have a OLPT-like workload using TiDB, and you want to perform OLAP query in place with the help of TiFlash
+  - With fresh data
+  - with zero interferene on OLTP performance 
+- Data integration
+  - When you have multiple data sources like (OLTP databases, streaming ingestion and etc), you want to perform OLAP query on the integrated data set
+
+数据的原地进行分析，不像传统的数据仓库批量的更新，批量的离线操作，TiFlash(列式存储引擎）原地进行分析。
+
+数据的汇总分析作为上游数据库的存库。
+
+### Connect with Spark Eco-system via TiSpark
+
+With TiSpark you can use Spark to process data within TiDB platform inplace without moving your data out.
+
+It's useful when you want workload like:
+
+- Iterative processing
+  - Like traditional ETL job
+- Joining datasets
+  - joining large datasets from multiple data sources
+  - a lot of shuffling and sorting is needed
+
+使用TiSpark联同Spark处理数据，分布式数据处理平台
+
+将Spark中的分布式计算任务下推到TiKV分布式节点中进行计算
+
+### TiDB may not be your best choice when:
+
+- your data can fit on a single server
+- You need to perform heavy analytics tasks
+  - Scanning and aggregation on large data sets, that intermediate results can not fit in single server's memory 
+- You need sub-millisecond latency
+  - Take a look at Redis?
+
+哪些场景TiDB不是一个好的选择，业务可以放在一台机器上完美的解决，业务中需要非常重度的分析场景也不太适用
+
+关联查询产生的中间数据超过了物理机的存储空间，需要亚毫秒级的延迟，不能容忍一毫秒级的延迟，
+
+TiDB持久化，分布式事务是一个很好的选择
+
+### Review 
+
+- TiDB for OLTP-like workload
+- TiDB for Real-time HTAP workload
+- Connect with Spark Eco-system via TiSpark
+- When TiDB is not a good choice
+
+
+
 ## 2.2 How to connect TiDB platform （如何连接到TiDB)
 
 本课程主要介绍了如何适用TiDB,通过实例介绍了如何使用相关工具连接到TiDB
